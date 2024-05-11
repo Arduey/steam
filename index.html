@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="shortcut icon" href="https://favicon.yandex.net/favicon/v2/https://store.steampowered.com?size=32" type="image/x-icon">
+		<link rel="icon" href="https://favicon.yandex.net/favicon/v2/https://store.steampowered.com?size=32" type="image/x-icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DLC入库代码获取</title>
+		<style>
+			.{
+				font-family:inherit;
+			}
+			#fba{
+				text-align:center;
+				border-collapse: separate;
+				display:none;
+				background-color:#142432;
+			}
+			#fba tr td{
+				height: 25px;
+			}
+			input::-webkit-outer-spin-button,
+			input::-webkit-inner-spin-button{
+				-webkit-appearance: none !important;
+				margin: 0;
+			}
+			input{
+				border-radius:6px;
+				border:1px solid #ddd;
+				background-color:#fafbfc;
+				width: 100%;
+				height: 30px;
+				margin:6px -5px;
+				font-weight: 600;
+				font-size: 15px;
+				padding:3px 8px;
+			}
+			table, tr{
+				width: 100%;
+			}
+			table tr td:first-child{
+				width: 15%;
+				padding:0px 5px;
+			}
+			table tr td:nth-child(2){
+				font-size: 15px;
+				width: 120px;
+				text-align:center;
+			}
+			button{
+				width: 150px;
+				border:1px solid #ddd;
+				margin: 20px auto;
+				padding: 4px auto;
+				text-align: center;
+				display: flex;
+				height: 35px;
+				flex-wrap: nowrap;
+				align-items: stretch;
+				flex-direction: column-reverse;
+				justify-content: center;
+				border-radius:7px;
+				background-color: #fafbfc;
+				font-weight: 700;
+				font-size: 15px;
+				color:#24292e;
+			}
+			#all{
+				width:400px;
+				margin:20px auto 5px;
+			}
+			#all2{
+				width:800px;
+				margin:5px auto;
+			}
+			body{
+				background-color:#161920;
+				color:#fff;
+				font-weight: 600;
+				font-size: 18px;
+			}
+			#small,#small td{
+				height:5px !important;
+			}
+			img {
+				width: 150px;
+				height: auto;
+			}
+			.img{
+				width:20% !important;
+			}
+			div>a {
+			    padding: 7px 14px;  
+			    margin:0px 20px;
+			    font-size: 15px; 
+			    text-decoration:none;
+				background-color: #fafbfc;
+                border-radius: 7px;
+                color: #24292e;
+			}
+			#fora{
+				margin: 0px auto 15px;
+				display: flex;
+				justify-content: center;
+			}
+			.copy{
+				color:#0095ff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="all">
+			<div><input type="number" name="order" id="order" placeholder="订单号"></div>
+			<div><input type="text" id="gamename" placeholder="STEAM上游戏名称 尽可能详细"></div>
+		<button class="querybutton" id="queryDLC" onclick="queryDLC()">查询DLC入库代码</button>
+		<div id="fora">
+			<a id="a1" href="https://mp.weixin.qq.com/s/gM0fHhXdi7AmBjKdRV-aug">使用说明</a>
+			<a id="a2" href="https://txc.qq.com/products/505746/faqs-more?id=137996">自助下单</a>
+			<a id="a2" href="https://txc.qq.com/products/505746/faqs-more?id=137996">入库问题</a>
+		</div>
+		</div>
+
+		<div id="all2">
+		<table id="fba">
+			<tr id="small"><td colspan="3"><hr></td></tr>
+			<tr><td>游戏名称①</td><td id="name1"></td><td rowspan="3" class="img"><img src="" id="img1"></td>
+			<tr><td>入库代码①</td><td id="code1"></td>
+			<tr><td>适用平台①</td><td id="system1"></td>
+			<tr id="small"><td colspan="3"><hr></td></tr>
+			<tr><td>游戏名称②</td><td id="name2"></td><td rowspan="3" class="img"><img src="" id="img2"></td>
+			<tr><td>入库代码②</td><td id="code2"></td>
+			<tr><td>适用平台②</td><td id="system2"></td>
+			<tr id="small"><td colspan="3"><hr></td></tr>
+			<tr><td>游戏名称③</td><td id="name3"></td><td rowspan="3" class="img"><img src="" id="img3"></td>
+			<tr><td>入库代码③</td><td id="code3"></td>
+			<tr><td>适用平台③</td><td id="system3"></td>
+			<tr id="small"><td colspan="3"><hr></td></tr>
+			<tr><td>查询信息</td><td id="message"></td><td rowspan="2" class="img"><img src="https://img0.baidu.com/it/u=4004314959,386122217&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=320"></td></tr>
+			<tr><td>剩余次数</td><td id="count"></td></tr>
+		<table>
+		</div>
+		<script>
+			var myorder = localStorage.getItem('myorder');
+			if (myorder) {
+				document.getElementById('order').value = myorder;
+			}
+		</script>
+		<script> 
+			function queryDLC(){
+				var sign="";
+				var order = document.getElementById('order').value;
+				var gamename = document.getElementById('gamename').value;
+				let[ordersig,gamenamesign]=[true,true];
+				if(!order){
+					sign=sign + "\n订单号不能为空\n";
+					ordersig=false;
+				}
+				if(!gamename){
+					sign=sign + "\n游戏名不能为空";
+					gamenamesign=false;
+				}
+				if(!(ordersig&&gamenamesign)){
+					alert(sign);
+					return;
+				}
+				var myorder = document.getElementById('order').value;
+				localStorage.setItem('myorder', myorder);
+				document.getElementById('queryDLC').innerText = "查询中";
+				var dataValue = "query-"+gamename+"kwaz"+order;
+				var requestBody = {
+					toUser: "395508874@qq.com",
+					code: "MTKT",
+					toDevice: "",
+					operation: "action",
+					data: dataValue,
+					action: "d476a64c-8079-4998-b097-4c9a82e24e5b",
+					wait: true,
+					maxWaitMs: 8000,
+					txt: true
+				};
+				fetch('https://push.getquicker.cn/to/quicker', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(requestBody)
+				}).then(function(response) {
+					document.getElementById('queryDLC').innerText = "查询DLC入库代码";
+					return response.json()
+				}).then(function(data) {
+					document.getElementById('fba').style.display = "block";
+					document.getElementById('name1').innerText = data.name1;
+					document.getElementById('code1').innerHTML = "<a class=\"copy\" onclick=\"copyToClipboard("+"'"+data.code1+"'"+")\">点击复制 "+data.code1+"</a>";
+					document.getElementById('system1').innerText = data.system1;
+					document.getElementById('name2').innerText = data.name2;
+					document.getElementById('code2').innerHTML = "<a class=\"copy\" onclick=\"copyToClipboard("+"'"+data.code2+"'"+")\">点击复制 "+data.code2+"</a>";
+					document.getElementById('system2').innerText = data.system2;
+					document.getElementById('name3').innerText = data.name3;
+					document.getElementById('code3').innerHTML = "<a class=\"copy\"  onclick=\"copyToClipboard("+"'"+data.code3+"'"+")\">点击复制 "+data.code3+"</a>";
+					document.getElementById('system3').innerText = data.system3;
+					document.getElementById('message').innerText = data.message;
+					document.getElementById('count').innerText = data.count;
+					document.getElementById('img1').src = data.img1;
+					document.getElementById('img2').src = data.img2;
+					document.getElementById('img3').src = data.img3;
+				}).catch(function(error) {
+					document.getElementById('queryDLC').innerText = "查询DLC入库代码";
+					document.getElementById('message').innerText = error;
+				});
+			}
+		</script>
+		<script>
+			function copyToClipboard(text) {
+				const textarea = document.createElement('textarea');
+				textarea.value = text;
+				textarea.style.position = 'fixed';
+				textarea.style.left = '0';
+				textarea.style.top = '0';
+				document.body.appendChild(textarea);
+				textarea.select();
+				try {
+					const result = document.execCommand('copy');
+					if (result) {
+						alert('复制成功!');
+					} else {
+						alert('复制失败! 请手动复制!');
+					}
+				} catch (error) {
+					alert('复制错误! 请手动复制!');
+				}
+				textarea.remove();
+			}
+		</script>
+	</body>
+</html>
