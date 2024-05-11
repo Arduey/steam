@@ -100,7 +100,7 @@
                 color: #24292e;
 			}
 			#fora{
-				margin: 0px auto 15px;
+				margin: 0px auto 20px;
 				display: flex;
 				justify-content: center;
 			}
@@ -115,9 +115,12 @@
 			<div><input type="text" id="gamename" placeholder="STEAM上游戏名称 尽可能详细"></div>
 		<button class="querybutton" id="queryDLC" onclick="queryDLC()">查询DLC入库代码</button>
 		<div id="fora">
-			<a id="a1" href="https://mp.weixin.qq.com/s/gM0fHhXdi7AmBjKdRV-aug">使用说明</a>
-			<a id="a2" href="https://txc.qq.com/products/505746/faqs-more?id=137996">自助下单</a>
-			<a id="a2" href="https://txc.qq.com/products/505746/faqs-more?id=137996">入库问题</a>
+			<a id="a1" href="https://support.qq.com/products/505746/faqs/155142">使用说明</a>
+			<a id="a2" href="https://afdian.net/item/0dbda4f20eda11ef887c5254001e7c00">自助下单</a>
+			<a id="a3" href="https://support.qq.com/products/505746/faqs/155141">入库问题</a>
+		</div>
+		<div id="fora">
+			<a id="a4" href="https://qm.qq.com/cgi-bin/qm/qr?k=PFkA0XVb0eW5SFf9-YSg5-EMzFSREpWs&jump_from=webapi&authKey=vZ58sfGNbJ0U3sBD+Zm8ypWGIqrLDcsRynglpWm3i4CVyWhYetmBNSZ6cP594u9K">一键加入QQ群聊</a>
 		</div>
 		</div>
 
@@ -224,10 +227,10 @@
 					if (result) {
 						alert('复制成功!');
 					} else {
-						alert('复制失败! 请手动复制!');
+						alert('复制失败!\n\n请手动复制!');
 					}
 				} catch (error) {
-					alert('复制错误! 请手动复制!');
+					alert('复制错误!\n\n请手动复制!');
 				}
 				textarea.remove();
 			}
