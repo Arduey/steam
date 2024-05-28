@@ -193,29 +193,29 @@
 					return response.json()
 				}).then(function(data) {
 					if(data.name1!="无"){
-						document.getElementsByTagName("tr")[0].style.display="block";
-						document.getElementsByTagName("tr")[1].style.display="block";
-						document.getElementsByTagName("tr")[2].style.display="block";
-						document.getElementsByTagName("tr")[3].style.display="block";
+						document.getElementsByTagName("tr")[0].style.display="table-row";
+						document.getElementsByTagName("tr")[1].style.display="table-row";
+						document.getElementsByTagName("tr")[2].style.display="table-row";
+						document.getElementsByTagName("tr")[3].style.display="table-row";
 						document.getElementById('fba').style.display = "block";
 						document.getElementById('name1').innerText = data.name1;
 						document.getElementById('code1').innerHTML = "<a class=\"copy\" onclick=\"copyToClipboard("+"'"+data.code1+"'"+")\">点击复制 "+data.code1+"</a>";
 						document.getElementById('system1').innerText = data.system1;
 						document.getElementById('img1').src = data.img1;
 						if(data.name2!="无"){
-							document.getElementsByTagName("tr")[4].style.display="block";
-							document.getElementsByTagName("tr")[5].style.display="block";
-							document.getElementsByTagName("tr")[6].style.display="block";
-							document.getElementsByTagName("tr")[7].style.display="block";
+							document.getElementsByTagName("tr")[4].style.display="table-row";
+							document.getElementsByTagName("tr")[5].style.display="table-row";
+							document.getElementsByTagName("tr")[6].style.display="table-row";
+							document.getElementsByTagName("tr")[7].style.display="table-row";
 							document.getElementById('name2').innerText = data.name2;
 							document.getElementById('code2').innerHTML = "<a class=\"copy\" onclick=\"copyToClipboard("+"'"+data.code2+"'"+")\">点击复制 "+data.code2+"</a>";
 							document.getElementById('system2').innerText = data.system2;
 							document.getElementById('img2').src = data.img2;
 							if(data.name3!="无"){
-								document.getElementsByTagName("tr")[8].style.display="block";
-								document.getElementsByTagName("tr")[9].style.display="block";
-								document.getElementsByTagName("tr")[10].style.display="block";
-								document.getElementsByTagName("tr")[11].style.display="block";
+								document.getElementsByTagName("tr")[8].style.display="table-row";
+								document.getElementsByTagName("tr")[9].style.display="table-row";
+								document.getElementsByTagName("tr")[10].style.display="table-row";
+								document.getElementsByTagName("tr")[11].style.display="table-row";
 								document.getElementById('name3').innerText = data.name3;
 								document.getElementById('code3').innerHTML = "<a class=\"copy\"  onclick=\"copyToClipboard("+"'"+data.code3+"'"+")\">点击复制 "+data.code3+"</a>";
 								document.getElementById('system3').innerText = data.system3;
