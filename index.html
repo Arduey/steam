@@ -197,12 +197,12 @@
 					document.getElementById('code1').innerHTML = "<a class=\"copy\" onclick=\"copyToClipboard("+"'"+data.code1+"'"+")\">点击复制 "+data.code1+"</a>";
 					document.getElementById('system1').innerText = data.system1;
 					document.getElementById('img1').src = data.img1;
-					if(data.name2){
+					if(data.name2!="无"){
 						document.getElementById('name2').innerText = data.name2;
 						document.getElementById('code2').innerHTML = "<a class=\"copy\" onclick=\"copyToClipboard("+"'"+data.code2+"'"+")\">点击复制 "+data.code2+"</a>";
 						document.getElementById('system2').innerText = data.system2;
 						document.getElementById('img2').src = data.img2;
-						if(data.name3){
+						if(data.name3!="无"){
 							document.getElementById('name3').innerText = data.name3;
 							document.getElementById('code3').innerHTML = "<a class=\"copy\"  onclick=\"copyToClipboard("+"'"+data.code3+"'"+")\">点击复制 "+data.code3+"</a>";
 							document.getElementById('system3').innerText = data.system3;
