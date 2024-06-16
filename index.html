@@ -191,12 +191,12 @@
 					document.getElementById('queryDLC').innerText = "查询DLC入库代码";
 					return response.json()
 				}).then(function(data) {
+					document.getElementById('fba').style.display = "block";
 					if(data.name1!="无"){
 						document.getElementsByTagName("tr")[0].style.display="table-row";
 						document.getElementsByTagName("tr")[1].style.display="table-row";
 						document.getElementsByTagName("tr")[2].style.display="table-row";
 						document.getElementsByTagName("tr")[3].style.display="table-row";
-						document.getElementById('fba').style.display = "block";
 						document.getElementById('name1').innerText = data.name1;
 						document.getElementById('code1').innerHTML = "<a class=\"copy\" onclick=\"copyToClipboard("+"'"+data.code1+"'"+")\">点击复制 "+data.code1+"</a>";
 						document.getElementById('system1').innerText = data.system1;
