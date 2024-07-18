@@ -111,7 +111,7 @@
 	</head>
 	<body>
 		<div id="all">
-			<div><input type="number" name="order" id="order" placeholder="订单号"></div>
+			<div><input type="text" name="order" id="order" placeholder="卡密"></div>
 			<div><input type="text" id="gamename" placeholder="STEAM上游戏名称 尽可能详细"></div>
 		<button class="querybutton" id="queryDLC" onclick="queryDLC()">查询DLC入库代码</button>
 		<div id="fora">
@@ -155,7 +155,7 @@
 				var gamename = document.getElementById('gamename').value;
 				let[ordersig,gamenamesign]=[true,true];
 				if(!order){
-					sign=sign + "\n订单号不能为空\n";
+					sign=sign + "\n卡密不能为空\n";
 					ordersig=false;
 				}
 				if(!gamename){
