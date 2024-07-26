@@ -148,6 +148,10 @@
 			if (myorder) {
 				document.getElementById('order').value = myorder;
 			}
+			var gamename = localStorage.getItem('gamename');
+			if (myorder) {
+				document.getElementById('gamename').value = gamename;
+			}
 		</script>
 		<script> 
 			function queryDLC(){
@@ -165,6 +169,8 @@
 				}
 				var myorder = document.getElementById('order').value;
 				localStorage.setItem('myorder', myorder);
+				var gamename = document.getElementById('gamename').value;
+				localStorage.setItem('gamename', gamename);
 				document.getElementById('queryDLC').innerText = "查询中";
 				if(order==""){var dataValue = "query-"+gamename;}
 				if(order!=""){var dataValue = "get-"+gamename+"kwaz"+order;}
