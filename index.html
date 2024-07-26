@@ -111,12 +111,12 @@
 	</head>
 	<body>
 		<div id="all">
-			<div><input type="text" name="order" id="order" placeholder="卡密 如981FEE396DC8DD2103712375860DE7EE"></div>
-			<div><input type="text" id="gamename" placeholder="STEAM上游戏名称 尽可能详细 英文名优先"></div>
+			<div><input type="text" name="order" id="order" placeholder="卡密  可无卡密查询系统是否存在DLC数据"></div>
+			<div><input type="text" id="gamename" placeholder="游戏名称  尽量全称  英文名优先  请看使用说明"></div>
 		<button class="querybutton" id="queryDLC" onclick="queryDLC()">查询DLC入库代码</button>
 		<div id="fora">
 			<a id="a1" href="https://support.qq.com/products/505746/faqs/155142">使用说明</a>
-			<a id="a2" href="https://www.jilvfaka.com/liebiao/D0C4298EC3EBEA55">自助下单</a>
+			<a id="a2" href="https://www.jilvfaka.com/liebiao/D0C4298EC3EBEA55">获取卡密</a>
 			<a id="a3" href="https://support.qq.com/products/505746/faqs/155141">入库问题</a>
 		</div>
 		<div id="fora">
@@ -153,23 +153,20 @@
 				var sign="";
 				var order = document.getElementById('order').value;
 				var gamename = document.getElementById('gamename').value;
-				let[ordersig,gamenamesign]=[true,true];
-				if(!order){
-					sign=sign + "\n卡密不能为空\n";
-					ordersig=false;
-				}
+				var gamenamesign= true;
 				if(!gamename){
 					sign=sign + "\n游戏名不能为空";
 					gamenamesign=false;
 				}
-				if(!(ordersig&&gamenamesign)){
+				if(!gamenamesign){
 					alert(sign);
 					return;
 				}
 				var myorder = document.getElementById('order').value;
 				localStorage.setItem('myorder', myorder);
 				document.getElementById('queryDLC').innerText = "查询中";
-				var dataValue = "query-"+gamename+"kwaz"+order;
+				if(order==""){var dataValue = "query-"+gamename;}
+				if(order!=""){var dataValue = "get-"+gamename+"kwaz"+order;}
 				var requestBody = {
 					toUser: "3421391653@qq.com",
 					code: "MTKT",
@@ -198,27 +195,57 @@
 						document.getElementsByTagName("tr")[2].style.display="table-row";
 						document.getElementsByTagName("tr")[3].style.display="table-row";
 						document.getElementById('name1').innerText = data.name1;
-						document.getElementById('code1').innerHTML = "<a class=\"copy\" onclick=\"copyToClipboard("+"'"+data.code1+"'"+")\">点击复制 "+data.code1+"</a>";
+						if(order==""){
+							document.getElementById('code1').innerHTML = "<a class=\"copy\" onclick=\"#\">"+data.code1+"</a>";
+						}else{
+							document.getElementById('code1').innerHTML = "<a class=\"copy\" onclick=\"copyToClipboard("+"'"+data.code1+"'"+")\">点击复制 "+data.code1+"</a>";
+						}
 						document.getElementById('system1').innerText = data.system1;
-						document.getElementById('img1').src = data.img1;
+						if(order==""){
+							document.getElementsByClassName('img')[0].style="background-image: url("+data.img1+");background-repeat: no-repeat;background-size: contain;";
+							document.getElementById('img1').src = "https://img0.baidu.com/it/u=4004314959,386122217&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=320";
+							document.getElementById('img1').style="opacity:0";
+						}else{
+							document.getElementById('img1').src = data.img1;
+						}
 						if(data.name2!="无"){
 							document.getElementsByTagName("tr")[4].style.display="table-row";
 							document.getElementsByTagName("tr")[5].style.display="table-row";
 							document.getElementsByTagName("tr")[6].style.display="table-row";
 							document.getElementsByTagName("tr")[7].style.display="table-row";
 							document.getElementById('name2').innerText = data.name2;
-							document.getElementById('code2').innerHTML = "<a class=\"copy\" onclick=\"copyToClipboard("+"'"+data.code2+"'"+")\">点击复制 "+data.code2+"</a>";
+							if(order==""){
+								document.getElementById('code2').innerHTML = "<a class=\"copy\" onclick=\"#\">"+data.code2+"</a>";
+							}else{
+								document.getElementById('code2').innerHTML = "<a class=\"copy\" onclick=\"copyToClipboard("+"'"+data.code2+"'"+")\">点击复制 "+data.code2+"</a>";
+							}
 							document.getElementById('system2').innerText = data.system2;
-							document.getElementById('img2').src = data.img2;
+							if(order==""){
+								document.getElementsByClassName('img')[1].style="background-image: url("+data.img2+");background-repeat: no-repeat;background-size: contain;";
+								document.getElementById('img2').src = "https://img0.baidu.com/it/u=4004314959,386122217&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=320";
+								document.getElementById('img2').style="opacity:0";
+							}else{
+								document.getElementById('img2').src = data.img2;
+							}
 							if(data.name3!="无"){
 								document.getElementsByTagName("tr")[8].style.display="table-row";
 								document.getElementsByTagName("tr")[9].style.display="table-row";
 								document.getElementsByTagName("tr")[10].style.display="table-row";
 								document.getElementsByTagName("tr")[11].style.display="table-row";
 								document.getElementById('name3').innerText = data.name3;
-								document.getElementById('code3').innerHTML = "<a class=\"copy\"  onclick=\"copyToClipboard("+"'"+data.code3+"'"+")\">点击复制 "+data.code3+"</a>";
+								if(order==""){
+									document.getElementById('code3').innerHTML = "<a class=\"copy\" onclick=\"#\">"+data.code3+"</a>";
+								}else{
+									document.getElementById('code3').innerHTML = "<a class=\"copy\" onclick=\"copyToClipboard("+"'"+data.code3+"'"+")\">点击复制 "+data.code3+"</a>";
+								}
 								document.getElementById('system3').innerText = data.system3;
-								document.getElementById('img3').src = data.img3;
+								if(order==""){
+									document.getElementsByClassName('img')[2].style="background-image: url("+data.img3+");background-repeat: no-repeat;background-size: contain;";
+									document.getElementById('img3').src = "https://img0.baidu.com/it/u=4004314959,386122217&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=320";
+									document.getElementById('img3').style="opacity:0";
+								}else{
+									document.getElementById('img3').src = data.img3;
+								}
 							}else{
 								document.getElementsByTagName("tr")[8].style.display="none";
 								document.getElementsByTagName("tr")[9].style.display="none";
