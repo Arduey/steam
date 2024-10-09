@@ -9,21 +9,15 @@
         <title>DLC入库代码获取</title>
 	<script>
 		(() => {
-			  function block() {
-			    if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
-			      document.body.innerHTML = "你妈死了";
-			    }
-			    setInterval(() => {
-			      (function () {
-			        return false;
-			      }
-			      ['constructor']('debugger')
-			      ['call']());
-			    }, 50);
-			  }
-			  try {
-			    block();
-			} catch (err) { }
+		  function ban() {
+		    setInterval(() => {
+			document.body.innerHTML = "你妈死了!";
+			Function('debugger')();
+		    }, 50);
+		  }
+		  try {
+		    ban();
+		  } catch (err) { }
 		})();
 	</script>
 		<style>
