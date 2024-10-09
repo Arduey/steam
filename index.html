@@ -11,12 +11,12 @@
 		(() => {
 		  function ban() {
 		    setInterval(() => {
-			document.body.innerHTML = "你妈死了!";
 			Function('debugger')();
 		    }, 50);
 		  }
 		  try {
 		    ban();
+			document.body.innerHTML = "你妈死了!";
 		  } catch (err) { }
 		})();
 	</script>
@@ -327,17 +327,17 @@
 			}
 		</script>
 		<script>
-			(() => {
-			  function ban() {
-			    setInterval(() => {
-				document.body.innerHTML = "你妈死了!";
-				Function('debugger')();
-			    }, 50);
-			  }
-			  try {
-			    ban();
-			  } catch (err) { }
-			})();
-		</script>
+		(() => {
+		  function ban() {
+		    setInterval(() => {
+			Function('debugger')();
+		    }, 50);
+		  }
+		  try {
+		    ban();
+			document.body.innerHTML = "你妈死了!";
+		  } catch (err) { }
+		})();
+	</script>
 	</body>
 </html>
