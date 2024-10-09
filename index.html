@@ -7,6 +7,18 @@
 	<link rel="icon" href="https://favicon.yandex.net/favicon/v2/https://store.steampowered.com?size=32" type="image/x-icon">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>DLC入库代码获取</title>
+	<script>
+		(() => {
+			function ban() {
+			  setInterval(() => {
+			    debugger;
+			  }, 50);
+			}
+			try {
+			  ban();
+			} catch (err) { }
+		})();
+	</script>
 		<style>
 			.{
 				font-family:inherit;
@@ -176,7 +188,7 @@
 				if(order!=""){var dataValue = "get-"+gamename+"kwaz"+order;}
 				var requestBody = {
 					toUser: "3421391653@qq.com",
-					code: "MTKT1",
+					code: "MTKTTT",
 					toDevice: "",
 					operation: "action",
 					data: dataValue,
