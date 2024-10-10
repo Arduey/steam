@@ -196,6 +196,7 @@
 					document.getElementById('queryDLC').innerText = "查询DLC入库代码";
 					return response.json()
 				}).then(function(data) {
+					alert(data);
 					document.getElementById('fba').style.display = "block";
 					if(data.name1!="无"){
 						document.getElementsByTagName("tr")[0].style.display="table-row";
