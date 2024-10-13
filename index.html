@@ -304,14 +304,39 @@
 				try {
 					const result = document.execCommand('copy');
 					if (result) {
-						alert('复制成功!');
+						showAutoCloseAlert('入库代码复制成功！', 2000);
 					} else {
-						alert('复制失败!\n\n请手动复制!');
+						showAutoCloseAlert('入库代码复制失败！\n请手动复制！', 2000);
 					}
 				} catch (error) {
-					alert('复制错误!\n\n请手动复制!');
+					showAutoCloseAlert('入库代码复制失败！\n请手动复制！', 2000);
 				}
 				textarea.remove();
+			}
+			var currentAlert = null;
+			function showAutoCloseAlert(message, duration) {
+				if (currentAlert) {
+				        document.body.removeChild(currentAlert);
+					currentAlert = null;
+				}
+				var alertDiv = document.createElement('div');
+				alertDiv.style.position = 'fixed';
+				alertDiv.style.top = '80%';
+				alertDiv.style.left = '50%';
+				alertDiv.style.transform = 'translate(-50%, -50%)';
+				alertDiv.style.padding = '10px';
+				alertDiv.style.backgroundColor = '#f44336'; // 红色背景
+				alertDiv.style.color = 'white';
+				alertDiv.style.zIndex = '1000';
+				alertDiv.style.fontSize = '1.2em';
+				alertDiv.style.borderRadius = '5px';
+				alertDiv.innerText = message;
+				document.body.appendChild(alertDiv);
+				currentAlert = alertDiv;
+				setTimeout(function() {
+					document.body.removeChild(alertDiv);
+					currentAlert = null;
+				}, duration);
 			}
 		</script>
 		<script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool" data-url="http://localhost:3000"></script>
