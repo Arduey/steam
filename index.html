@@ -172,7 +172,7 @@
 				localStorage.setItem('myorder', myorder);
 				var gamename = document.getElementById('gamename').value;
 				localStorage.setItem('gamename', gamename);
-				document.getElementById('queryDLC').innerText = "查询中";
+				document.getElementById('queryDLC').innerText = "查询";
 				if(order==""){var dataValue = gamename;}
 				if(order!=""){var dataValue = gamename+"&&&"+order;}
 				copyToClipboard(dataValue);
