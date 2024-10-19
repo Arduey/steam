@@ -190,12 +190,12 @@
 				try {
 					const result = document.execCommand('copy');
 					if (result) {
-						showAutoCloseAlert('入库代码复制成功！', 2000);
+						showAutoCloseAlert('查询命令已成功！\n去QQ找机器人查询吧！', 2000);
 					} else {
-						showAutoCloseAlert('入库代码复制失败！\n请手动复制！', 2000);
+						showAutoCloseAlert('查询命令复制失败！\n格式如下\n\n游戏名&&&订单号\n游戏名', 3000);
 					}
 				} catch (error) {
-					showAutoCloseAlert('入库代码复制失败！\n请手动复制！', 2000);
+					showAutoCloseAlert('查询命令复制失败！\n格式如下\n\n游戏名&&&订单号\n游戏名', 3000);
 				}
 				textarea.remove();
 			}
