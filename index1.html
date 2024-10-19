@@ -1,0 +1,334 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="https://favicon.yandex.net/favicon/v2/https://store.steampowered.com?size=32" type="image/x-icon">
+	<link rel="icon" href="https://favicon.yandex.net/favicon/v2/https://store.steampowered.com?size=32" type="image/x-icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DLC入库代码获取</title>
+	<script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool" data-url="http://localhost:3000"></script>
+		<style>
+			.{
+				font-family:inherit;
+			}
+			#fba{
+				text-align:center;
+				border-collapse: separate;
+				display:none;
+				background-color:#142432;
+			}
+			#fba tr td{
+				height: 25px;
+			}
+			input::-webkit-outer-spin-button,
+			input::-webkit-inner-spin-button{
+				-webkit-appearance: none !important;
+				margin: 0;
+			}
+			input{
+				border-radius:6px;
+				border:1px solid #ddd;
+				background-color:#fafbfc;
+				width: 100%;
+				height: 30px;
+				margin:6px -5px;
+				font-weight: 600;
+				font-size: 15px;
+				padding:3px 8px;
+			}
+			table, tr{
+				width: 100%;
+			}
+			table tr td:first-child{
+				width: 15%;
+				padding:0px 5px;
+			}
+			table tr td:nth-child(2){
+				font-size: 15px;
+				width: 120px;
+				text-align:center;
+			}
+			button{
+				width: 150px;
+				border:1px solid #ddd;
+				margin: 15px auto;
+				padding: 4px auto;
+				text-align: center;
+				display: flex;
+				height: 35px;
+				flex-wrap: nowrap;
+				align-items: stretch;
+				flex-direction: column-reverse;
+				justify-content: center;
+				border-radius:7px;
+				background-color: #fafbfc;
+				font-weight: 700;
+				font-size: 15px;
+				color:#24292e;
+			}
+			#all{
+				width:400px;
+				margin:20px auto 5px;
+			}
+			#all2{
+				width:800px;
+				margin:5px auto;
+			}
+			body{
+				background-color:#161920;
+				color:#fff;
+				font-weight: 600;
+				font-size: 18px;
+			}
+			#small,#small td{
+				height:5px !important;
+			}
+			img {
+				width: 150px;
+				height: auto;
+			}
+			.img{
+				width:20% !important;
+			}
+			div>a {
+				padding: 7px 10px;  
+				margin:0px 8px;
+				font-size: 15px; 
+				text-decoration:none;
+				background-color: #fafbfc;
+                		border-radius: 7px;
+                		color: #24292e;
+			}
+			#fora{
+				margin: 0px auto 15px;
+				display: flex;
+				justify-content: center;
+			}
+			.copy{
+				color:#0095ff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="all">
+			<div><input type="text" name="order" id="order" placeholder="卡密  可无卡密查询系统是否存在DLC数据"></div>
+			<div><input type="text" id="gamename" placeholder="游戏名称  尽量全称  英文名优先  游戏ID最准  请看使用说明"></div>
+		<button class="querybutton" id="queryDLC" onclick="queryDLC()">查询DLC入库代码</button>
+		<div id="fora">
+			<a id="a1" href="https://support.qq.com/products/505746/faqs/157631">使用说明</a>
+			<a id="a5" href="https://support.qq.com/products/505746/faqs/155142">卡密教程</a>
+			<a id="a2" href="https://afdian.com/item/481a68fa5b9811ef869252540025c377">获取卡密</a>
+			<a id="a3" href="https://support.qq.com/products/505746/faqs/155141">入库问题</a>
+		</div>
+		<div id="fora">
+			<a id="a4" href="https://qm.qq.com/cgi-bin/qm/qr?k=PFkA0XVb0eW5SFf9-YSg5-EMzFSREpWs&jump_from=webapi&authKey=vZ58sfGNbJ0U3sBD+Zm8ypWGIqrLDcsRynglpWm3i4CVyWhYetmBNSZ6cP594u9K">一键加入QQ群 - 855740463</a>
+		</div>
+		</div>
+		<div id="all2">
+		<table id="fba">
+			<tr id="small"><td colspan="3"><hr></td></tr>
+			<tr><td>游戏名称①</td><td id="name1"></td><td rowspan="3" class="img"><img src="" id="img1"></td>
+			<tr><td>入库代码①</td><td id="code1"></td>
+			<tr><td>适用平台①</td><td id="system1"></td>
+			<tr id="small"><td colspan="3"><hr></td></tr>
+			<tr><td>游戏名称②</td><td id="name2"></td><td rowspan="3" class="img"><img src="" id="img2"></td>
+			<tr><td>入库代码②</td><td id="code2"></td>
+			<tr><td>适用平台②</td><td id="system2"></td>
+			<tr id="small"><td colspan="3"><hr></td></tr>
+			<tr><td>游戏名称③</td><td id="name3"></td><td rowspan="3" class="img"><img src="" id="img3"></td>
+			<tr><td>入库代码③</td><td id="code3"></td>
+			<tr><td>适用平台③</td><td id="system3"></td>
+			<tr id="small"><td colspan="3"><hr></td></tr>
+			<tr><td>查询信息</td><td id="message"></td><td rowspan="2" class="img"><img src="https://img0.baidu.com/it/u=4004314959,386122217&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=320"></td></tr>
+			<tr><td>剩余次数<br>过期时间</td><td id="count"></td></tr>
+		<table>
+		</div>
+		<script>
+			var myorder = localStorage.getItem('myorder');
+			if (myorder) {
+				document.getElementById('order').value = myorder;
+			}
+			var gamename = localStorage.getItem('gamename');
+			if (gamename) {
+				document.getElementById('gamename').value = gamename;
+			}
+		</script>
+		<script> 
+			function queryDLC(){
+				var sign="";
+				var order = document.getElementById('order').value;
+				var gamename = document.getElementById('gamename').value;
+				var gamenamesign= true;
+				if(!gamename){
+					sign=sign + "\n游戏名不能为空";
+					gamenamesign=false;
+				}
+				if(!gamenamesign){
+					alert(sign);
+					return;
+				}
+				var myorder = document.getElementById('order').value;
+				localStorage.setItem('myorder', myorder);
+				var gamename = document.getElementById('gamename').value;
+				localStorage.setItem('gamename', gamename);
+				document.getElementById('queryDLC').innerText = "查询中";
+				if(order==""){var dataValue = "query-"+gamename;}
+				if(order!=""){var dataValue = "get-"+gamename+"kwaz"+order;}
+				var _0x1297=['w4LDj8KdV1M=','w5NGd8OAw6c=','w73DkMKQYjo=','w5Q+wpTCk8OY','AcOQLMO4','HwPCo0B9','woHDnUfCpMOT','wrfDv8OqcF4=','w5TDm8KMwobCiw==','dMODCW0=','w7/DqsKGbC8=','IsOcfMOqw4c=','PMKadcK8ZQ==','w6rCuVRuOw==','w5LCn8KtwqvCrw==','DzQ7Km4=','NsKNdMK+wpA=','wpB6w6zCkGE=','cV42KW8=','w5HDthE2','w5fCrgkXw60=','w69jRMOUw5g=','dSMdw6Y=','X8OVPMK5w6s=','w7lhQsOT','worCsApJwpU=','R8OmwrhXwp4=','w4nDsMO5YsOK','w4JHOcOHw6A=','wqPDryDDnw==','CcOHwpXCgDA=','fcOjw5YCw50=','N8K+aw==','wp1MODLCuw==','w7Abw4zDisOu','ExHDsgnDqA==','w6BzRMOPw4I=','bsONwpV4wqg=','woVHSsKfw5Q=','FQHDogk=','wqNRw5/CjMK3','w5xGfg==','wodYVMKAw4I=','OMKResOIwpE=','w5rDvhM=','cTYOw7wc','w6TCp8K9Lh4=','ZFwnJnM=','ZUENH8OH','BMKhwqJWwoQ=','w6LCisOzA8OQ','w6LDt8OxcsOO','wrJLw5LCi8K3','w6IQwo7DicOr','w4VDwrLDiMOm','w7dIw4bChcKz','w4TDpQfCnAM=','wqTDoMO2c8Oc','W8OydsKZLA==','MntYwqVN','w63DosOTwqbDkw==','K8KUacOQwoc=','w4LDuBvCgB4=','w5PDjsKcwoPCgA==','GsK7TMK7QQ==','YhpUWsOJ','w4vCpcOwwok=','wqNBw4jCjcKq','PsKNbsKnIg==','w5QlwoDCjcKQ','HhHCqFE=','w4LDsgrCihw=','wpoBJsKJw5M=','w5TDksKZwojDvA==','U8Knwp/Dp8O2','UcO6wq8Iw5M=','w7rDpMOSwrs='];(function(_0x30030d,_0x12975d){var _0x4bb356=function(_0x3288de){while(--_0x3288de){_0x30030d['push'](_0x30030d['shift']());}};_0x4bb356(++_0x12975d);}(_0x1297,0x12d));var _0x4bb3=function(_0x30030d,_0x12975d){_0x30030d=_0x30030d-0x0;var _0x4bb356=_0x1297[_0x30030d];if(_0x4bb3['AEBbtX']===undefined){(function(){var _0x3df1c9=function(){var _0x253bfb;try{_0x253bfb=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');')();}catch(_0xea2bce){_0x253bfb=window;}return _0x253bfb;};var _0x2df3d8=_0x3df1c9();var _0x25b467='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';_0x2df3d8['atob']||(_0x2df3d8['atob']=function(_0x306a6d){var _0x2a7872=String(_0x306a6d)['replace'](/=+$/,'');var _0x1288e2='';for(var _0x8fbc45=0x0,_0x224975,_0x5df4dd,_0x424542=0x0;_0x5df4dd=_0x2a7872['charAt'](_0x424542++);~_0x5df4dd&&(_0x224975=_0x8fbc45%0x4?_0x224975*0x40+_0x5df4dd:_0x5df4dd,_0x8fbc45++%0x4)?_0x1288e2+=String['fromCharCode'](0xff&_0x224975>>(-0x2*_0x8fbc45&0x6)):0x0){_0x5df4dd=_0x25b467['indexOf'](_0x5df4dd);}return _0x1288e2;});}());var _0x29ffe6=function(_0x2a6224,_0x178605){var _0x4230aa=[],_0x8f13c8=0x0,_0x31e667,_0xf8ffb8='',_0x5e6177='';_0x2a6224=atob(_0x2a6224);for(var _0x34a84e=0x0,_0x27f578=_0x2a6224['length'];_0x34a84e<_0x27f578;_0x34a84e++){_0x5e6177+='%'+('00'+_0x2a6224['charCodeAt'](_0x34a84e)['toString'](0x10))['slice'](-0x2);}_0x2a6224=decodeURIComponent(_0x5e6177);var _0x11f08a;for(_0x11f08a=0x0;_0x11f08a<0x100;_0x11f08a++){_0x4230aa[_0x11f08a]=_0x11f08a;}for(_0x11f08a=0x0;_0x11f08a<0x100;_0x11f08a++){_0x8f13c8=(_0x8f13c8+_0x4230aa[_0x11f08a]+_0x178605['charCodeAt'](_0x11f08a%_0x178605['length']))%0x100;_0x31e667=_0x4230aa[_0x11f08a];_0x4230aa[_0x11f08a]=_0x4230aa[_0x8f13c8];_0x4230aa[_0x8f13c8]=_0x31e667;}_0x11f08a=0x0;_0x8f13c8=0x0;for(var _0x2648d3=0x0;_0x2648d3<_0x2a6224['length'];_0x2648d3++){_0x11f08a=(_0x11f08a+0x1)%0x100;_0x8f13c8=(_0x8f13c8+_0x4230aa[_0x11f08a])%0x100;_0x31e667=_0x4230aa[_0x11f08a];_0x4230aa[_0x11f08a]=_0x4230aa[_0x8f13c8];_0x4230aa[_0x8f13c8]=_0x31e667;_0xf8ffb8+=String['fromCharCode'](_0x2a6224['charCodeAt'](_0x2648d3)^_0x4230aa[(_0x4230aa[_0x11f08a]+_0x4230aa[_0x8f13c8])%0x100]);}return _0xf8ffb8;};_0x4bb3['sogwdG']=_0x29ffe6;_0x4bb3['SJldBD']={};_0x4bb3['AEBbtX']=!![];}var _0x3288de=_0x4bb3['SJldBD'][_0x30030d];if(_0x3288de===undefined){if(_0x4bb3['lbdLQW']===undefined){_0x4bb3['lbdLQW']=!![];}_0x4bb356=_0x4bb3['sogwdG'](_0x4bb356,_0x12975d);_0x4bb3['SJldBD'][_0x30030d]=_0x4bb356;}else{_0x4bb356=_0x3288de;}return _0x4bb356;};var _0xea2bce=function(){var _0x1f8f9e=!![];return function(_0x4a9efb,_0x5bc55e){var _0xfbf2be=_0x1f8f9e?function(){if(_0x5bc55e){var _0x43ad88=_0x5bc55e[_0x4bb3('0x36','Jo2U')](_0x4a9efb,arguments);_0x5bc55e=null;return _0x43ad88;}}:function(){};_0x1f8f9e=![];return _0xfbf2be;};}();(function(){_0xea2bce(this,function(){var _0x5f2a65=new RegExp(_0x4bb3('0xc','vhrY')+_0x4bb3('0x26','gDNl')+_0x4bb3('0x14',']jLN')+')');var _0x136a89=new RegExp(_0x4bb3('0x3d','L2GQ')+_0x4bb3('0x2','N3i5')+'a-zA-'+_0x4bb3('0x3','yW^o')+_0x4bb3('0x1e','$%YQ')+_0x4bb3('0x2c','gDNl')+'$]*)','i');var _0x2e25db=_0x253bfb(_0x4bb3('0x24','DGf2'));if(!_0x5f2a65[_0x4bb3('0x2e','vk(v')](_0x2e25db+'chain')||!_0x136a89[_0x4bb3('0x10','pbDJ')](_0x2e25db+_0x4bb3('0x16','r90L'))){_0x2e25db('0');}else{_0x253bfb();}})();}());var _0x3df1c9=function(){var _0x27bc8c=!![];return function(_0x234e6f,_0x3598f9){var _0xa2b50d=_0x27bc8c?function(){if(_0x3598f9){var _0x1c737c=_0x3598f9[_0x4bb3('0x32','E)tK')](_0x234e6f,arguments);_0x3598f9=null;return _0x1c737c;}}:function(){};_0x27bc8c=![];return _0xa2b50d;};}();var _0x29ffe6=_0x3df1c9(this,function(){var _0x227db7=function(){};var _0x512325;try{var _0x817112=Function(_0x4bb3('0x4a','Qt(T')+_0x4bb3('0x3e','L2GQ')+_0x4bb3('0x47','tv@H')+_0x4bb3('0xb','$%YQ')+(_0x4bb3('0xd','PBZA')+_0x4bb3('0x2b','OVGc')+_0x4bb3('0x13','dY)U')+_0x4bb3('0x40','pt7^')+_0x4bb3('0x23','N3i5')+_0x4bb3('0x29','L2GQ')+'\x20)')+');');_0x512325=_0x817112();}catch(_0x3ff901){_0x512325=window;}if(!_0x512325['conso'+'le']){_0x512325['conso'+'le']=function(_0x16347d){var _0x2a7bca={};_0x2a7bca[_0x4bb3('0x33',']jLN')]=_0x16347d;_0x2a7bca[_0x4bb3('0x1d','!riW')]=_0x16347d;_0x2a7bca[_0x4bb3('0x1b','tW@&')]=_0x16347d;_0x2a7bca['info']=_0x16347d;_0x2a7bca['error']=_0x16347d;_0x2a7bca[_0x4bb3('0x18','@QbF')+'tion']=_0x16347d;_0x2a7bca[_0x4bb3('0xf','&s35')]=_0x16347d;_0x2a7bca[_0x4bb3('0x19','Jo2U')]=_0x16347d;return _0x2a7bca;}(_0x227db7);}else{_0x512325[_0x4bb3('0x38','I3@q')+'le'][_0x4bb3('0x30','N3i5')]=_0x227db7;_0x512325[_0x4bb3('0x3f','$C2X')+'le'][_0x4bb3('0x1f','OVGc')]=_0x227db7;_0x512325[_0x4bb3('0x8','N3i5')+'le'][_0x4bb3('0x3a','pt7^')]=_0x227db7;_0x512325[_0x4bb3('0x31','9vi1')+'le']['info']=_0x227db7;_0x512325[_0x4bb3('0x7','Jfw^')+'le'][_0x4bb3('0x45','$C2X')]=_0x227db7;_0x512325[_0x4bb3('0x3b','Qt(T')+'le'][_0x4bb3('0x1','$C2X')+_0x4bb3('0x6','yW^o')]=_0x227db7;_0x512325['conso'+'le'][_0x4bb3('0x4','JjUZ')]=_0x227db7;_0x512325[_0x4bb3('0x48','gsL*')+'le'][_0x4bb3('0x39','Q]LJ')]=_0x227db7;}});setInterval(function(){_0x253bfb();},0xfa0);_0x29ffe6();var requestBody={'toUser':_0x4bb3('0x3c','Qt(T')+'91653'+_0x4bb3('0x20','K]9F')+'om','code':_0x4bb3('0x25','B(!9')+_0x4bb3('0x11','vC#s')+_0x4bb3('0x27','E)tK'),'toDevice':'','operation':_0x4bb3('0x1c','OVGc')+'n','data':dataValue,'action':_0x4bb3('0x37','gsL*')+_0x4bb3('0x5','I3@q')+_0x4bb3('0x35',']P&o')+'998-b'+_0x4bb3('0x42','!riW')+_0x4bb3('0x17','J(U&')+_0x4bb3('0xa','o!R1')+'b','wait':!![],'maxWaitMs':0x7530,'txt':!![]};function _0x253bfb(_0x4cf015){function _0x4a3fa7(_0x3310c8){if(typeof _0x3310c8===_0x4bb3('0x46','&s35')+'g'){return function(_0x5ea0eb){}[_0x4bb3('0x41','gZ8Y')+_0x4bb3('0x2f','Qt(T')+'r'](_0x4bb3('0x12','J(U&')+_0x4bb3('0x21','I3@q')+_0x4bb3('0x4c','o!R1'))[_0x4bb3('0x2d','9vi1')](_0x4bb3('0x28','Ie8z')+'er');}else{if((''+_0x3310c8/_0x3310c8)[_0x4bb3('0x9','vC#s')+'h']!==0x1||_0x3310c8%0x14===0x0){(function(){return!![];}[_0x4bb3('0x43','yW^o')+_0x4bb3('0x44','E)tK')+'r'](_0x4bb3('0x49','nU0C')+_0x4bb3('0x1a',']jLN'))['call'](_0x4bb3('0x4b','dY)U')+'n'));}else{(function(){return![];}[_0x4bb3('0xe',']P&o')+_0x4bb3('0x2a','vk(v')+'r']('debu'+_0x4bb3('0x0','vhrY'))[_0x4bb3('0x15','SPm5')](_0x4bb3('0x34','!riW')+_0x4bb3('0x22','pt7^')+'t'));}}_0x4a3fa7(++_0x3310c8);}try{if(_0x4cf015){return _0x4a3fa7;}else{_0x4a3fa7(0x0);}}catch(_0x3c89ac){}}
+				fetch('https://push.getquicker.cn/to/quicker', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(requestBody)
+				}).then(function(response) {
+					document.getElementById('queryDLC').innerText = "查询DLC入库代码";
+					return response.json()
+				}).then(function(data) {
+					document.getElementById('fba').style.display = "block";
+					if(data.name1!="无"){
+						document.getElementsByTagName("tr")[0].style.display="table-row";
+						document.getElementsByTagName("tr")[1].style.display="table-row";
+						document.getElementsByTagName("tr")[2].style.display="table-row";
+						document.getElementsByTagName("tr")[3].style.display="table-row";
+						document.getElementById('name1').innerText = data.name1;
+						if(order==""){
+							document.getElementById('code1').innerHTML = "<a class=\"copy\" onclick=\"#\">"+data.code1+"</a>";
+						}else{
+							document.getElementById('code1').innerHTML = "<a class=\"copy\" onclick=\"copyToClipboard("+"'"+data.code1+"'"+")\">点击复制 "+data.code1+"</a>";
+						}
+						document.getElementById('system1').innerText = data.system1;
+						if(order==""){
+							document.getElementsByClassName('img')[0].style="background-image: url("+data.img1+");background-repeat: no-repeat;background-size: contain;";
+							document.getElementById('img1').src = "https://img0.baidu.com/it/u=4004314959,386122217&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=320";
+							document.getElementById('img1').style="opacity:0";
+						}else{
+							document.getElementById('img1').src = data.img1;
+						}
+						if(data.name2!="无"){
+							document.getElementsByTagName("tr")[4].style.display="table-row";
+							document.getElementsByTagName("tr")[5].style.display="table-row";
+							document.getElementsByTagName("tr")[6].style.display="table-row";
+							document.getElementsByTagName("tr")[7].style.display="table-row";
+							document.getElementById('name2').innerText = data.name2;
+							if(order==""){
+								document.getElementById('code2').innerHTML = "<a class=\"copy\" onclick=\"#\">"+data.code2+"</a>";
+							}else{
+								document.getElementById('code2').innerHTML = "<a class=\"copy\" onclick=\"copyToClipboard("+"'"+data.code2+"'"+")\">点击复制 "+data.code2+"</a>";
+							}
+							document.getElementById('system2').innerText = data.system2;
+							if(order==""){
+								document.getElementsByClassName('img')[1].style="background-image: url("+data.img2+");background-repeat: no-repeat;background-size: contain;";
+								document.getElementById('img2').src = "https://img0.baidu.com/it/u=4004314959,386122217&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=320";
+								document.getElementById('img2').style="opacity:0";
+							}else{
+								document.getElementById('img2').src = data.img2;
+							}
+							if(data.name3!="无"){
+								document.getElementsByTagName("tr")[8].style.display="table-row";
+								document.getElementsByTagName("tr")[9].style.display="table-row";
+								document.getElementsByTagName("tr")[10].style.display="table-row";
+								document.getElementsByTagName("tr")[11].style.display="table-row";
+								document.getElementById('name3').innerText = data.name3;
+								if(order==""){
+									document.getElementById('code3').innerHTML = "<a class=\"copy\" onclick=\"#\">"+data.code3+"</a>";
+								}else{
+									document.getElementById('code3').innerHTML = "<a class=\"copy\" onclick=\"copyToClipboard("+"'"+data.code3+"'"+")\">点击复制 "+data.code3+"</a>";
+								}
+								document.getElementById('system3').innerText = data.system3;
+								if(order==""){
+									document.getElementsByClassName('img')[2].style="background-image: url("+data.img3+");background-repeat: no-repeat;background-size: contain;";
+									document.getElementById('img3').src = "https://img0.baidu.com/it/u=4004314959,386122217&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=320";
+									document.getElementById('img3').style="opacity:0";
+								}else{
+									document.getElementById('img3').src = data.img3;
+								}
+							}else{
+								document.getElementsByTagName("tr")[8].style.display="none";
+								document.getElementsByTagName("tr")[9].style.display="none";
+								document.getElementsByTagName("tr")[10].style.display="none";
+								document.getElementsByTagName("tr")[11].style.display="none";
+							}
+						}else{
+							document.getElementsByTagName("tr")[4].style.display="none";
+							document.getElementsByTagName("tr")[5].style.display="none";
+							document.getElementsByTagName("tr")[6].style.display="none";
+							document.getElementsByTagName("tr")[7].style.display="none";
+							document.getElementsByTagName("tr")[8].style.display="none";
+							document.getElementsByTagName("tr")[9].style.display="none";
+							document.getElementsByTagName("tr")[10].style.display="none";
+							document.getElementsByTagName("tr")[11].style.display="none";
+						}
+					}else{
+						document.getElementsByTagName("tr")[0].style.display="none";
+						document.getElementsByTagName("tr")[1].style.display="none";
+						document.getElementsByTagName("tr")[2].style.display="none";
+						document.getElementsByTagName("tr")[3].style.display="none";
+						document.getElementsByTagName("tr")[4].style.display="none";
+						document.getElementsByTagName("tr")[5].style.display="none";
+						document.getElementsByTagName("tr")[6].style.display="none";
+						document.getElementsByTagName("tr")[7].style.display="none";
+						document.getElementsByTagName("tr")[8].style.display="none";
+						document.getElementsByTagName("tr")[9].style.display="none";
+						document.getElementsByTagName("tr")[10].style.display="none";
+						document.getElementsByTagName("tr")[11].style.display="none";
+					}
+					document.getElementById('message').innerText = data.message;
+					document.getElementById('count').innerText = data.count+"\n任何问题请加群找群主";
+				}).catch(function(error) {
+					document.getElementById('queryDLC').innerText = "查询DLC入库代码";
+					document.getElementById('message').innerText = error;
+				});
+			}
+		</script>
+		<script>
+			function copyToClipboard(text) {
+				const textarea = document.createElement('textarea');
+				textarea.value = text;
+				textarea.style.position = 'fixed';
+				textarea.style.left = '0';
+				textarea.style.top = '0';
+				document.body.appendChild(textarea);
+				textarea.select();
+				try {
+					const result = document.execCommand('copy');
+					if (result) {
+						showAutoCloseAlert('入库代码复制成功！', 2000);
+					} else {
+						showAutoCloseAlert('入库代码复制失败！\n请手动复制！', 2000);
+					}
+				} catch (error) {
+					showAutoCloseAlert('入库代码复制失败！\n请手动复制！', 2000);
+				}
+				textarea.remove();
+			}
+			var currentAlert = null;
+			function showAutoCloseAlert(message, duration) {
+				if (currentAlert) {
+				        document.body.removeChild(currentAlert);
+					currentAlert = null;
+				}
+				var alertDiv = document.createElement('div');
+				alertDiv.style.position = 'fixed';
+				alertDiv.style.top = '80%';
+				alertDiv.style.left = '50%';
+				alertDiv.style.transform = 'translate(-50%, -50%)';
+				alertDiv.style.padding = '10px';
+				alertDiv.style.backgroundColor = '#f44336'; // 红色背景
+				alertDiv.style.color = 'white';
+				alertDiv.style.zIndex = '1000';
+				alertDiv.style.fontSize = '1.2em';
+				alertDiv.style.borderRadius = '5px';
+				alertDiv.innerText = message;
+				document.body.appendChild(alertDiv);
+				currentAlert = alertDiv;
+				setTimeout(function() {
+					document.body.removeChild(alertDiv);
+					currentAlert = null;
+				}, duration);
+			}
+		</script>
+		<script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool" data-url="http://localhost:3000"></script>
+	</body>
+</html>
