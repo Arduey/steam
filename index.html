@@ -224,7 +224,12 @@
 					currentAlert = null;
 				}, duration);
 			}
-			window.onload = function() {showAutoCloseAlert('网站被攻击, 查询功能被迫转到QQ\n现网站仅用于快速生成查询命令！\n加入QQ群找机器人查询吧！\n\n使用方法看群相册！', 5000);}
+			window.onload = function() {
+				showAutoCloseAlert('3秒后跳转到最新网址', 3000);
+				setTimeout(function() {
+					window.location.href = "https://arduey.top/yd";
+				}, 3000);
+			}
 		</script>
 		<script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool" data-url="http://localhost:3000"></script>
 	</body>
